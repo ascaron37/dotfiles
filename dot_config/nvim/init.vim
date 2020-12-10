@@ -12,7 +12,8 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'KnoP-01/krl-for-vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'brookhong/cscope.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 syntax off                 " undo what plug#begin() did to syntax
 filetype plugin indent off " undo what plug#begin() did to filetype
@@ -20,6 +21,8 @@ syntax on                  " syntax and filetype on in that order
 filetype plugin indent on  " syntax and filetype on in that order
 
 inoremap jk <Esc>
+set updatetime=200
+set cursorline
 
 let g:deoplete#enable_at_startup = 1
 
@@ -48,7 +51,10 @@ let g:neoformat_enabled_c = ['clangformat']
 let mapleader="\<SPACE>"
 map <Leader>n :NERDTreeToggle<CR>
 set showmatch           " Show matching brackets.
+set relativenumber
 set number              " Show the line numbers on the left side.
+set number relativenumber
+set scrolloff=8
 set formatoptions+=o    " Continue comment marker in new lines.
 set expandtab           " Insert spaces when TAB is pressed.
 set tabstop=4           " Render TABs using this many spaces.
@@ -88,6 +94,8 @@ nnoremap Q @q
 
 nnoremap <silent> <leader>f :FZF<cr>
 nnoremap <silent> <leader>F :FZF ~<cr>
-nnoremap <C-g> :Rg<Cr>
+
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") |
+            \ exe "normal g'\"" | endif
 
 autocmd vimenter * colorscheme gruvbox
