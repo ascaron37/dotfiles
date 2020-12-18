@@ -1,0 +1,3 @@
+xbindkeys
+dbus-launch thunar --daemon &
+exec ~/bin/startdwm
