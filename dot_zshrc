@@ -88,6 +88,7 @@ ZSH_THEME="flazz"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+export FZF_BASE=/usr/share/doc/fzf
 plugins=(git vi-mode fzf zsh-completions)
 autoload -U compinit && compinit
 
