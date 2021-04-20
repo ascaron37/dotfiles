@@ -5,6 +5,8 @@
 	required = true
 [user]
 	name = maxim
-	email = maxim.bendiks@bendiks.de
+	email = post@bendiks.de
 [core]
-	excludesfile = .config/git/.gitignore
+	excludesfile = /home/maxim/.gitignore
+[init]
+	defaultBranch = main

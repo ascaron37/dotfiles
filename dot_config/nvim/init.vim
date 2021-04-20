@@ -11,12 +11,15 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'KnoP-01/krl-for-vim'
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'mattn/emmet-vim'
 call plug#end()
 syntax off                 " undo what plug#begin() did to syntax
 filetype plugin indent off " undo what plug#begin() did to filetype
+let python_highlight_all=1
 syntax on                  " syntax and filetype on in that order
 filetype plugin indent on  " syntax and filetype on in that order
 
@@ -25,6 +28,7 @@ set updatetime=200
 set cursorline
 
 let g:deoplete#enable_at_startup = 1
+let g:user_emmet_leader_key=','
 
 call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
 
@@ -32,8 +36,13 @@ call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
 call deoplete#custom#var('clangx', 'default_c_options', '')
 call deoplete#custom#var('clangx', 'default_cpp_options', '')
 
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
-    \ 'python': ['pylint'],
+    \ 'python': ['flake8'],
     \ 'vim': ['vint'],
     \ 'cpp': ['clang'],
     \ 'c': ['clang']
@@ -46,6 +55,7 @@ let g:neoformat_cpp_clangformat = {
         \}
 let g:neoformat_enabled_cpp = ['clangformat']
 let g:neoformat_enabled_c = ['clangformat']
+let g:neoformat_enabled_python = ['autopep8']
 
 
 let mapleader="\<SPACE>"
@@ -61,6 +71,23 @@ set tabstop=4           " Render TABs using this many spaces.
 set shiftwidth=4        " Indentation amount for < and > commands.
 
 set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+let g:python3_host_prog=$HOME.'/.venv/neovim/bin/python'
+au BufNewFile,BufRead *.html,*.css
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+
+set encoding=utf-8
 
 " More natural splits
 set splitbelow          " Horizontal split
