@@ -17,6 +17,7 @@ alias ta="t a -t"
 alias tls="t ls"
 alias tn="t new -t"
 alias config='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
+alias in="task add +in"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -27,7 +28,8 @@ export ZSH="/home/maxim/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="flazz"
+#ZSH_THEME="flazz"
+ZSH_THEME="aussiegeek"
 #SOLARIZED_THEME="dark"
 
 # Set list of themes to pick from when loading at random
@@ -112,6 +114,9 @@ export EDITOR='nvim'
 # fi
 
 export PATH="${PATH}:${HOME}/.local/bin"
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"

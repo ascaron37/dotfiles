@@ -4,8 +4,6 @@ Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'deoplete-plugins/deoplete-clang'
 Plug 'dense-analysis/ale'
 Plug 'sbdchd/neoformat'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'morhetz/gruvbox'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf'
@@ -13,9 +11,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'KnoP-01/krl-for-vim'
 "Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/indentpython.vim'
-Plug 'mattn/emmet-vim'
+"Plug 'mattn/emmet-vim'
 call plug#end()
 syntax off                 " undo what plug#begin() did to syntax
 filetype plugin indent off " undo what plug#begin() did to filetype
@@ -26,9 +26,12 @@ filetype plugin indent on  " syntax and filetype on in that order
 inoremap jk <Esc>
 set updatetime=200
 set cursorline
+set hidden
+set splitbelow
+set splitright
 
 let g:deoplete#enable_at_startup = 1
-let g:user_emmet_leader_key=','
+"let g:user_emmet_leader_key=','
 
 call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
 
@@ -59,7 +62,6 @@ let g:neoformat_enabled_python = ['autopep8']
 
 
 let mapleader="\<SPACE>"
-map <Leader>n :NERDTreeToggle<CR>
 set showmatch           " Show matching brackets.
 set relativenumber
 set number              " Show the line numbers on the left side.
@@ -93,6 +95,13 @@ set encoding=utf-8
 set splitbelow          " Horizontal split
 set splitright          " Vertical split
 
+if bufwinnr(1)
+    map + <C-w>+
+    map - <C-w>-
+    map <C-n> <C-w><
+    map <C-t> <C-w>>
+endif
+
 " Tell Vim which characters to show for expanded TABs,
 " trailing whitespace, and end-of-lines. VERY useful!
 if &listchars ==# 'eol:$'
@@ -108,9 +117,9 @@ set ignorecase          " Make searching case insensitive
 set smartcase           " ... unless the query has capital letters.
 set gdefault            " Use 'g' flag by default with :s/foo/bar/.
 
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-    nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+" Use <C-s> to clear the highlighting of :set hlsearch.
+if maparg('<C-s>', 'n') ==# ''
+    nnoremap <silent> <C-s> :nohlsearch<CR><C-L>
 endif
 
 " Search and Replace
@@ -125,4 +134,9 @@ nnoremap <silent> <leader>F :FZF ~<cr>
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") |
             \ exe "normal g'\"" | endif
 
+nmap <silent> <Leader>d <Plug>KrlListDef
+" switch between src and dat files
+nnoremap <Leader>a :if expand('%')=~'\.dat$' <bar> e %:s?\.dat$?.src? <bar> else <bar> e %:s?\.src$?.dat? <bar> endif<CR>
+
 autocmd vimenter * colorscheme gruvbox
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P

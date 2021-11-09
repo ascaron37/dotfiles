@@ -9,3 +9,4 @@ xrdb ~/.Xresources
 exec ~/bin/startdwm
 #exec startxfce4
 #exec awesome
+#exec i3

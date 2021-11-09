@@ -8,5 +8,19 @@
 	email = post@bendiks.de
 [core]
 	excludesfile = /home/maxim/.gitignore
+	autocrlf = input
 [init]
 	defaultBranch = main
+[pull]
+	rebase = true
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
+[merge]
+    tool = meld
+[mergetool "meld"]
+    # Choose one of these 2 lines (not both!) explained below.
+    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
