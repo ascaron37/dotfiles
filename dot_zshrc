@@ -115,8 +115,8 @@ export EDITOR='nvim'
 
 export PATH="${PATH}:${HOME}/.local/bin"
 export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init --path)"
+#eval "$(pyenv init -)"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"

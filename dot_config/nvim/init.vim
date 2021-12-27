@@ -80,7 +80,7 @@ au BufNewFile,BufRead *.py
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
-let g:python3_host_prog=$HOME.'/.venv/neovim/bin/python'
+"let g:python3_host_prog=$HOME.'/.venv/neovim/bin/python'
 au BufNewFile,BufRead *.html,*.css
     \ set tabstop=2 |
     \ set softtabstop=2 |
@@ -140,3 +140,6 @@ nnoremap <Leader>a :if expand('%')=~'\.dat$' <bar> e %:s?\.dat$?.src? <bar> else
 
 autocmd vimenter * colorscheme gruvbox
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 2

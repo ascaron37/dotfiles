@@ -6,7 +6,7 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_SCALE_FACTOR=2
 xrandr
 xrdb ~/.Xresources
-exec ~/bin/startdwm
-#exec startxfce4
+#exec ~/bin/startdwm
+exec startxfce4
 #exec awesome
 #exec i3
