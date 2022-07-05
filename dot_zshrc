@@ -91,7 +91,7 @@ ZSH_THEME="aussiegeek"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 export FZF_BASE=/usr/share/doc/fzf
-plugins=(git vi-mode fzf zsh-completions)
+plugins=(git vi-mode fzf poetry zsh-completions)
 autoload -U compinit && compinit
 
 source $HOME/.oh-my-zsh/custom/plugins/fzf-tab-completion/zsh/fzf-zsh-completion.sh
