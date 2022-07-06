@@ -152,6 +152,8 @@ nnoremap <Leader>s :%s//g<Left><Left>
 nnoremap <silent> <Leader><Leader> :source $MYVIMRC<cr>
 
 nnoremap Q @q
+" Close Quick fix window
+nnoremap <leader>c :cclose<CR>
 
 nnoremap <silent> <leader>f :FZF<cr>
 nnoremap <silent> <leader>F :FZF ~<cr>
@@ -165,6 +167,11 @@ nnoremap <silent> <Leader>a :if expand('%')=~'\.dat$' <bar> e %:s?\.dat$?.src? <
 
 autocmd vimenter * colorscheme gruvbox
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
+" Go
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+let g:go_doc_popup_window = 1
+let g:go_list_type = "quickfix"
 
 " Write all buffers before navigating from Vim to tmux pane
 let g:tmux_navigator_save_on_switch = 2
