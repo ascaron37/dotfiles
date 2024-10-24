@@ -1,26 +1,3 @@
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
 [user]
-	name = maxim
-	email = post@bendiks.de
-[core]
-	excludesfile = /home/maxim/.gitignore
-	autocrlf = input
-[init]
-	defaultBranch = main
-[pull]
-	rebase = true
-[diff]
-    tool = meld
-[difftool]
-    prompt = false
-[difftool "meld"]
-    cmd = meld "$LOCAL" "$REMOTE"
-[merge]
-    tool = meld
-[mergetool "meld"]
-    # Choose one of these 2 lines (not both!) explained below.
-    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+	name = Maxim
+	email = maxim@bendiks.de
