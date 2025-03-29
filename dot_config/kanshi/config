@@ -1,0 +1,9 @@
+profile apex {
+	output "Samsung Electric Company C24F390 H4ZTA08124" mode 1920x1080 position 0,0
+	output "Samsung Electric Company C24F390 H4ZTA07128" mode 1920x1080 position 1920,0
+	output eDP-1 disable
+}
+
+profile laptop {
+	output eDP-1 enable scale 1.5
+}
