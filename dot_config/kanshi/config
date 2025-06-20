@@ -4,6 +4,11 @@ profile apex {
 	output eDP-1 disable
 }
 
+profile home {
+	output "BNQ BenQ GL2450H P1G02272019" mode 1920x1080 position 0,0
+	output eDP-1 enable scale 1.25
+}
+
 profile laptop {
-	output eDP-1 enable scale 1.5
+	output eDP-1 enable scale 1 
 }

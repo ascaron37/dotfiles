@@ -1,3 +1,5 @@
 [user]
 	name = Maxim
 	email = maxim@bendiks.de
+[init]
+	defaultBranch = main

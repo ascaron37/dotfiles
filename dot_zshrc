@@ -42,6 +42,9 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias ls='ls --color'
+alias zzz='sudo zzz'
+alias reboot='sudo reboot'
+alias shutdown='sudo shutdown -P now'
 
 # Shell integrations
 eval "$(fzf --zsh)"
@@ -50,6 +53,8 @@ eval "$(zoxide init --cmd cd zsh)"
 path+=$(go env GOPATH)/bin
 
 export PATH
+export EDITOR=nvim
+export VISUAL=$EDITOR
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
