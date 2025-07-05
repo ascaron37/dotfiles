@@ -1,110 +1,123 @@
-# /generate-tasks Command
+# Rule: Intelligent Task Generation from Project Plans
 
-## Usage
-`/generate-tasks <prd-filename>` - Generate task list from PRD (two-phase process)
+## Goal
 
-## Purpose
-Convert a completed PRD into a structured, actionable task list with parent tasks and sub-tasks.
+To guide an AI assistant in creating high-quality, contextually-aware tasks through intelligent multi-phase analysis. The system transforms project plans into implementable task lists using advanced reasoning, domain expertise, and quality validation while maintaining simplicity-first principles.
 
-## When to Use
-When the user wants to generate a task list from an existing PRD file that has been reviewed and approved.
+## Output
 
-## Critical Two-Phase Process
+- **Format:** Markdown (`.md`)
+- **Location:** `/tasks/`
+- **Filename:** `tasks.md`
 
-### Phase 1: Generate Parent Tasks
-1. **Read and analyze** the specified PRD file
-2. **Create high-level tasks** (typically ~5 main tasks)
-3. **Present tasks WITHOUT sub-tasks yet**
-4. **Say exactly**: "I have generated the high-level tasks based on the PRD. Ready to generate the sub-tasks? Respond with 'Go' to proceed."
-5. **WAIT for user confirmation** - Do not proceed until user says "Go"
+## Intelligent 4-Phase Process
 
-### Phase 2: Generate Sub-Tasks
-1. **Only proceed after user says "Go"**
-2. **Break down each parent task** into smaller, actionable sub-tasks
-3. **Identify relevant files** that will be created/modified
-4. **Generate final output** with complete structure
+### Phase 1: Context Gathering & Deep Analysis
+1. **Project Context Detection:** Analyze project structure (package.json, go.mod, requirements.txt, etc.)
+2. **Codebase Analysis:** Use `mcp__zen__analyze` with `gemini-pro` to understand:
+   - Existing architecture patterns and conventions
+   - Technology stack and framework usage
+   - Code complexity and technical debt levels
+   - Integration points and dependency relationships
+3. **Plan Deep Analysis:** Use `mcp__zen__thinkdeep` with `gemini-pro` for comprehensive plan understanding and architectural implications
+
+### Phase 2: Multi-Domain Expert Analysis (Subagent Specialization)
+4. **Architecture Subagent:** Use `mcp__zen__analyze` for structural considerations and design patterns
+5. **Security Subagent:** Use `mcp__zen__secaudit` thinking for security task identification and compliance requirements
+6. **Performance Subagent:** Identify performance-critical implementation tasks and optimization opportunities
+7. **Quality Subagent:** Apply YAGNI and simplicity principles to ensure minimal, clean implementations
+8. **Integration Subagent:** Map dependencies, API integrations, and external service requirements
+
+### Phase 3: Intelligent Task Synthesis
+9. **Strategic Planning:** Use `mcp__zen__planner` with `gemini-pro` for optimal task breakdown and sequencing
+10. **Dependency Mapping:** Identify and properly order task dependencies with critical path analysis
+11. **Risk Assessment:** Assign complexity and risk levels to each task for better planning
+12. **Simplicity Enforcement:** Ensure all tasks follow YAGNI and simplicity-first principles
+13. **Task Optimization:** Generate 5-8 high-level tasks that are implementable, testable, and maintainable
+
+### Phase 4: Quality Validation & Consensus
+14. **Multi-Model Validation:** Use `mcp__zen__consensus` with `gemini-pro` to validate:
+    - Task completeness and technical feasibility
+    - Proper dependency ordering and critical path
+    - Alignment with simplicity and YAGNI principles
+    - Technical accuracy and implementability
+15. **Quality Gates:** Verify each task meets quality criteria and project requirements
+16. **Final Output Generation:** Create structured task list with detailed descriptions and metadata
 
 ## Output Format
-Save as `tasks-[prd-file-name].md` in `/tasks/` directory:
+
+The generated task list _must_ follow this structure:
 
 ```markdown
-## Relevant Files
-
-- `path/to/file1.ts` - Brief description of purpose
-- `path/to/file1.test.ts` - Unit tests for file1.ts
-- `path/to/another/file.tsx` - Brief description
-- `path/to/another/file.test.tsx` - Unit tests for another/file.tsx
-
-### Notes
-
-- Unit tests should be placed alongside code files
-- Use `npx jest [optional/path/to/test/file]` to run tests
-- Running without path executes all tests found by Jest configuration
-
 ## Tasks
 
-- [ ] 1.0 Parent Task Title
-  - [ ] 1.1 [Sub-task description]
-  - [ ] 1.2 [Sub-task description]
-- [ ] 2.0 Parent Task Title
-  - [ ] 2.1 [Sub-task description]
-- [ ] 3.0 Parent Task Title
+### 1.0 Task Title [Priority: High | Complexity: Medium | Risk: 2/3]
+**Description:** Detailed description of what this task involves, its objectives, key considerations, and expected outcomes. Include technical details, architectural patterns, and integration requirements discovered during analysis.
+
+**Dependencies:** None (or list of task IDs this depends on)
+**Domain Focus:** Architecture/Security/Performance/Integration
+**Simplicity Notes:** Specific guidance on maintaining simplest possible implementation
+**Estimated Effort:** Time estimate based on complexity analysis
+**Technical Considerations:** 
+- Framework-specific implementation details
+- Existing code patterns to follow
+- Testing requirements and strategy
+- Integration points and API considerations
+
+### 2.0 Task Title [Priority: Medium | Complexity: Low | Risk: 1/3]
+**Description:** [Same detailed structure as above]
+
+**Dependencies:** Task 1.0
+**Domain Focus:** [Domain identified by subagent analysis]
+**Simplicity Notes:** [YAGNI guidance specific to this task]
+**Estimated Effort:** [Based on analysis]
+**Technical Considerations:**
+- [Context-specific implementation guidance]
+- [Existing patterns and conventions to follow]
+- [Quality gates and validation requirements]
 ```
 
-## Task Creation Guidelines
+## Enhanced AI Instructions
 
-### Parent Tasks (X.0)
-- Should align with major PRD sections or functional areas
-- Typically 3-7 high-level tasks
-- Examples:
-  - "1.0 Setup Project Structure"
-  - "2.0 Implement Core Features"
-  - "3.0 Add User Interface Components"
-  - "4.0 Integrate Backend Services"
-  - "5.0 Testing and Validation"
+When generating tasks from plans, the AI must execute all 4 phases systematically:
 
-### Sub-Tasks (X.Y)
-- Should be specific and actionable
-- Estimate 30 minutes to 4 hours each
-- Include file creation/modification
-- Examples:
-  - "1.1 Initialize repository and dependencies"
-  - "2.1 Create user authentication service"
-  - "3.1 Build login component"
+### Phase 1 Execution: Context & Analysis
+1. **Project Detection:** Analyze project files to determine technology stack and architecture
+2. **Deep Codebase Analysis:** Use `mcp__zen__analyze` with `gemini-pro` for comprehensive understanding
+3. **Plan Analysis:** Use `mcp__zen__thinkdeep` with `gemini-pro` for architectural implications
 
-### File Identification
-For each task, identify:
-- **Source files** that will be created/modified
-- **Test files** corresponding to each source file
-- **Configuration files** if needed
-- **Documentation files** if applicable
+### Phase 2 Execution: Subagent Analysis 
+4. **Deploy Specialized Analysis:** Each domain expert (Architecture, Security, Performance, Quality, Integration) provides specific insights
+5. **Consolidate Domain Findings:** Merge specialized insights into comprehensive understanding
 
-## Technology Stack Considerations
-When generating tasks, consider the project's technology stack:
-- **Languages**: C++, Python, C#, JavaScript
-- **Frontend**: Angular, React
-- **Development Tools**: Claude Code v1.0.17
+### Phase 3 Execution: Intelligent Synthesis
+6. **Strategic Planning:** Use `mcp__zen__planner` with `gemini-pro` for optimal task breakdown
+7. **Apply Simplicity Principles:** Ensure every task follows YAGNI and simplest-possible-implementation
+8. **Dependency & Risk Mapping:** Order tasks by dependencies and assess implementation risks
 
-## Integration with PRD Elements
+### Phase 4 Execution: Quality Validation
+9. **Consensus Validation:** Use `mcp__zen__consensus` with `gemini-pro` for multi-model validation
+10. **Quality Gates:** Verify completeness, feasibility, and alignment with project requirements
+11. **Final Task Generation:** Create enhanced task format with metadata and technical guidance
 
-### From Goals Section
-- Create parent tasks that align with each major goal
-- Ensure tasks contribute to measurable objectives
+### Zen Tool Model Specification
+**MANDATORY:** All `mcp__zen__*` tools MUST use `gemini-pro` model:
+- `mcp__zen__analyze` → `gemini-pro`
+- `mcp__zen__thinkdeep` → `gemini-pro`
+- `mcp__zen__planner` → `gemini-pro`
+- `mcp__zen__consensus` → `gemini-pro`
+- `mcp__zen__secaudit` → `gemini-pro`
 
-### From User Stories Section
-- Create sub-tasks for each user story implementation
-- Group related user stories under appropriate parent tasks
+### Simplicity-First Requirements
+- **YAGNI Enforcement:** Only generate tasks for actually needed functionality
+- **Minimal Implementation:** Each task should achieve goals with simplest possible approach
+- **Code Quality Focus:** Prioritize readable, maintainable solutions over complex ones
+- **No Over-Engineering:** Avoid unnecessary abstractions or premature optimizations
 
-### From Functional Requirements Section
-- Each requirement should map to one or more sub-tasks
-- Maintain traceability between requirements and tasks
+## Interaction Model
 
-### From Success Metrics Section
-- Include validation and testing tasks
-- Add tasks for metrics collection/measurement
+The enhanced process generates contextually-aware, high-level tasks with comprehensive metadata. Subtasks will be generated later during implementation by the `process-task-list.md` command when each high-level task is started.
 
-## File Location
-Save the completed task list as `tasks-[prd-filename].md` in the `/tasks/` directory.
+## Target Audience
 
-## Next Steps
-After generating tasks, the task list becomes the single source of truth for project progress. Use `/next-task` to identify what to work on first.
+Assume the primary reader is a **developer** who needs specific, actionable guidance for implementation, including technical context, dependencies, and quality requirements.
